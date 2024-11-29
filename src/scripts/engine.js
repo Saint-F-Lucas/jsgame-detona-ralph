@@ -1,19 +1,26 @@
 // Here we will see two veriables concepts 1° view for things that will apppear on the screen and 2° values for things that will run on the "back end".
 
 // const defines a variable, here is a "object" apparently is similar to dictionaries in python
+
 const state = {
   view: {
     squares: document.querySelectorAll('.square'),
     enemy: document.querySelector('.enemy'),
     timeLeft: document.querySelector('#time-left'),
-    score: document.querySelector('#score')
+    score: document.querySelector('#score'),
+    lives: document.querySelector('.lives')
   },
   values: {
     timerID: 1,
-    gameVelocity: 2500,
     hitPosition: 0,
     result: 0,
-    currentTime: 60
+    currentTime: 60,
+    livesCount: 3,
+  },
+  actions: {
+    countDownTimerID: setInterval(countDown, 1000),
+    gameVelocity: setInterval(randomSquare, 1000),
+
   }
 }
 
@@ -22,8 +29,27 @@ function countDown () {
 
   if (state.values.currentTime <= 0)  {
     alert("Game Over! Seu resultado foi" + state.values.result)
+    state.values.currentTime = 60
+    state.values.livesCount = 3
+
   }
+  state.view.lives.textContent = state.values.livesCount
+  state.view.timeLeft.textContent = state.values.currentTime
 }
+
+function livesLoss () {
+  state.values.livesCount--
+  if (state.values.livesCount <= 0) {
+    alert("Game Over! Você perdeu todas as suas vidas!!!")
+    state.values.livesCount = 3
+    state.values.currentTime = 5
+
+  }
+  state.view.timeLeft.textContent = state.values.currentTime
+  state.view.lives.textContent = state.values.livesCount
+
+}
+
 
 // This adds a .enemy for a random item
 
@@ -47,7 +73,6 @@ function randomSquare() {
 
 function moveEnemy() {
   // This is making a timer that for every 750 miliseconds calls the function randomSquare
-  state.values.timerID = setInterval(randomSquare, state.values.gameVelocity)
 }
 
 // Listner is a of concept for functions that "hear" inputs and "weight" for somethig to happend
@@ -62,7 +87,15 @@ function addListenerHitBox() {
         state.view.score.textContent = state.values.result
         state.values.hitPosition = null
         square.classList.remove('enemy')
+        square.animate ([{backgroundColor: "#1aeaa5"},{backgroundColor: "#049162"}, {backgroundColor: "#1aeaa5"}], 500)
         randomSquare()
+
+            }
+      else {
+        square.animate ([{backgroundColor: "#1aeaa5"},{backgroundColor: "#f9311f"}, {backgroundColor: "#1aeaa5"}], 500)
+
+        livesLoss()
+
       }
     })
   })
@@ -72,7 +105,6 @@ function addListenerHitBox() {
 
 function init() {
   addListenerHitBox()
-  moveEnemy()
 }
 
 init()
