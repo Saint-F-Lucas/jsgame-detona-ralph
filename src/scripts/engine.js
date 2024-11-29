@@ -21,7 +21,8 @@ const state = {
     countDownTimerID: setInterval(countDown, 1000),
     gameVelocity: setInterval(randomSquare, 1000),
 
-  }
+  },
+  colorTransition: [[{backgroundColor: "#1aeaa5"},{backgroundColor: "#049162"}, {backgroundColor: "#1aeaa5"}],[{backgroundColor: "#1aeaa5"},{backgroundColor: "#f9311f"}, {backgroundColor: "#1aeaa5"}] ],
 }
 
 function countDown () {
@@ -42,7 +43,7 @@ function livesLoss () {
   if (state.values.livesCount <= 0) {
     alert("Game Over! Você perdeu todas as suas vidas!!!")
     state.values.livesCount = 3
-    state.values.currentTime = 5
+    state.values.currentTime = 60
 
   }
   state.view.timeLeft.textContent = state.values.currentTime
@@ -87,12 +88,12 @@ function addListenerHitBox() {
         state.view.score.textContent = state.values.result
         state.values.hitPosition = null
         square.classList.remove('enemy')
-        square.animate ([{backgroundColor: "#1aeaa5"},{backgroundColor: "#049162"}, {backgroundColor: "#1aeaa5"}], 500)
+        square.animate (state.colorTransition[0], 500)
         randomSquare()
 
             }
       else {
-        square.animate ([{backgroundColor: "#1aeaa5"},{backgroundColor: "#f9311f"}, {backgroundColor: "#1aeaa5"}], 500)
+        square.animate (state.colorTransition[1], 500)
 
         livesLoss()
 
