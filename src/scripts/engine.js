@@ -10,9 +10,18 @@ const state = {
   },
   values: {
     timerID: 1,
-    gameVelocity: 1250,
+    gameVelocity: 2500,
     hitPosition: 0,
-    result: 0
+    result: 0,
+    currentTime: 60
+  }
+}
+
+function countDown () {
+  state.values.currentTime--
+
+  if (state.values.currentTime <= 0)  {
+    alert("Game Over! Seu resultado foi" + state.values.result)
   }
 }
 
@@ -52,6 +61,8 @@ function addListenerHitBox() {
         state.values.result++
         state.view.score.textContent = state.values.result
         state.values.hitPosition = null
+        square.classList.remove('enemy')
+        randomSquare()
       }
     })
   })
@@ -60,6 +71,7 @@ function addListenerHitBox() {
 // basic function to run as the page loads and start the pages code.
 
 function init() {
+  addListenerHitBox()
   moveEnemy()
 }
 
