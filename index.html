@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./src/styles/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-</head>
-<!-- ctrl > k > c is for comments -->
-<body>
+    <link rel="stylesheet" href="./src/styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <!-- ctrl > k > c is for comments -->
+  <body>
+    <!-- The div.container could easily a main tag-->
+    <div class="container">
+      <!-- in this case I typed div.menu then inside of it I typed div.menu-time+div.menu-score to create div faster -->
+      <div class="menu">
+        <!-- If after you create the elements you needed you press alt+shift you can clone the selected item, if you type alt+ctlr+shift your cursor will be able to type in all of the elements crated at the same time  -->
+        <div class="menu-time">
+          <h2 style="color: red">Time Left</h2>
+          <h2 id="time-left">0</h2>
+        </div>
+        <div class="menu-score">
+          <h2 style="color: red">Your score</h2>
+          <h2 id="score">0</h2>
+        </div>
+        <div class="menu-lives">
+          <img src="./src/images/player.png" alt="foto do jogador" />
+          <h2>x3</h2>
+        </div>
+      </div>
 
+      <div class="panel">
+        <!-- emmet is the tool for shortcuts in building html, in this case 
+        ().panel-row>square[id="0"]*3)*3 made the four divs bellow
+ -->
+        <div class="panel-row">
+          <div class="square enemy" id="1"></div>
+          <div class="square" id="2"></div>
+          <div class="square" id="3"></div>
+        </div>
+        <div class="panel-row">
+          <div class="square" id="4"></div>
+          <div class="square" id="5"></div>
+          <div class="square" id="6"></div>
+        </div>
+        <div class="panel-row">
+          <div class="square" id="7"></div>
+          <div class="square" id="8"></div>
+          <div class="square" id="9"></div>
+        </div>
+      </div>
+    </div>
 
-<!-- The defer value makes the script run only after the html is loaded -->
+    <!-- The defer value makes the script run only after the html is loaded -->
     <script defer src="./src/scripts/engine.js"></script>
-</body>
+  </body>
 </html>
