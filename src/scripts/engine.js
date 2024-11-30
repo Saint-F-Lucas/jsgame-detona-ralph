@@ -9,7 +9,7 @@ const state = {
     score: document.querySelector('#score')
   },
   values: {
-    timerID: 1,
+    timerID: null,
     gameVelocity: 1250,
     hitPosition: 0,
     result: 0
@@ -47,7 +47,9 @@ function addListenerHitBox() {
   //using items selector from the constant made before to use the function forEach that goes though ( in this case ) every item with the class .square,
   state.view.squares.forEach(square => {
     // .addEventListener makes listen for clicks in the squere
+
     square.addEventListener('mousedown', () => {
+      console.log('it works')
       if (square.id === state.values.hitPosition) {
         state.values.result++
         state.view.score.textContent = state.values.result
@@ -61,6 +63,7 @@ function addListenerHitBox() {
 
 function init() {
   moveEnemy()
+  addListenerHitBox()
 }
 
 init()
