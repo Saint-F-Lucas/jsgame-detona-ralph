@@ -11,51 +11,63 @@ const state = {
     lives: document.querySelector('.lives')
   },
   values: {
-<<<<<<< HEAD
     timerID: null,
     gameVelocity: 1250,
-=======
     timerID: 1,
->>>>>>> 3a4a58078c04f97f7903d6f7d4e3652ffd0dff7d
     hitPosition: 0,
     result: 0,
     currentTime: 60,
-    livesCount: 3,
+    livesCount: 3
   },
   actions: {
     countDownTimerID: setInterval(countDown, 1000),
-    gameVelocity: setInterval(randomSquare, 1000),
-
+    // This is making a timer that for every 750 miliseconds calls the function randomSquare
+    gameVelocity: setInterval(randomSquare, 1000)
   },
-  colorTransition: [[{backgroundColor: "#1aeaa5"},{backgroundColor: "#049162"}, {backgroundColor: "#1aeaa5"}],[{backgroundColor: "#1aeaa5"},{backgroundColor: "#f9311f"}, {backgroundColor: "#1aeaa5"}] ],
+  colorTransition: [
+    [
+      { backgroundColor: '#1aeaa5' },
+      { backgroundColor: '#049162' },
+      { backgroundColor: '#1aeaa5' }
+    ],
+    [
+      { backgroundColor: '#1aeaa5' },
+      { backgroundColor: '#f9311f' },
+      { backgroundColor: '#1aeaa5' }
+    ],
+    [{ backgroundColor: 1 }, { opacity: 0 }]
+  ]
 }
 
-function countDown () {
+function playSound(audioName) {
+  let audio = new Audio(`./src/audios/${audioName}.m4a`)
+  audio.volume = 0.2
+  audio.play()
+}
+
+function countDown() {
   state.values.currentTime--
 
-  if (state.values.currentTime <= 0)  {
-    alert("Game Over! Seu resultado foi" + state.values.result)
-    state.values.currentTime = 60
-    state.values.livesCount = 3
-
-  }
   state.view.lives.textContent = state.values.livesCount
   state.view.timeLeft.textContent = state.values.currentTime
+  if (state.values.currentTime <= 0) {
+    alert('Game Over! Seu resultado foi' + state.values.result)
+    state.values.currentTime = 60
+    state.values.livesCount = 3
+  }
 }
 
-function livesLoss () {
+function livesLoss() {
   state.values.livesCount--
-  if (state.values.livesCount <= 0) {
-    alert("Game Over! Você perdeu todas as suas vidas!!!")
-    state.values.livesCount = 3
-    state.values.currentTime = 60
 
-  }
   state.view.timeLeft.textContent = state.values.currentTime
   state.view.lives.textContent = state.values.livesCount
-
+  if (state.values.livesCount <= 0) {
+    alert('Game Over! Você perdeu todas as suas vidas!!!')
+    state.values.livesCount = 3
+    state.values.currentTime = 60
+  }
 }
-
 
 // This adds a .enemy for a random item
 
@@ -77,10 +89,6 @@ function randomSquare() {
   state.values.hitPosition = randomSquare.id
 }
 
-function moveEnemy() {
-  // This is making a timer that for every 750 miliseconds calls the function randomSquare
-}
-
 // Listner is a of concept for functions that "hear" inputs and "weight" for somethig to happend
 
 function addListenerHitBox() {
@@ -89,21 +97,17 @@ function addListenerHitBox() {
     // .addEventListener makes listen for clicks in the squere
 
     square.addEventListener('mousedown', () => {
-      console.log('it works')
       if (square.id === state.values.hitPosition) {
         state.values.result++
         state.view.score.textContent = state.values.result
         state.values.hitPosition = null
         square.classList.remove('enemy')
-        square.animate (state.colorTransition[0], 500)
-        randomSquare()
-
-            }
-      else {
-        square.animate (state.colorTransition[1], 500)
+        square.animate(state.colorTransition[0], 500)
+        playSound('hit')
+      } else {
+        square.animate(state.colorTransition[1], 500)
 
         livesLoss()
-
       }
     })
   })
@@ -112,10 +116,6 @@ function addListenerHitBox() {
 // basic function to run as the page loads and start the pages code.
 
 function init() {
-<<<<<<< HEAD
-  moveEnemy()
-=======
->>>>>>> 3a4a58078c04f97f7903d6f7d4e3652ffd0dff7d
   addListenerHitBox()
 }
 
